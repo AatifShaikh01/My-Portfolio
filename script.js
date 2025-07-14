@@ -4,27 +4,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== Typewriter Effect ==========
     const titles = ["Full Stack Developer", "MERN Stack Developer", "Web App Architect"];
-    let i = 0, j = 0, currentTitle = "", isDeleting = false;
+    let i = 0, j = 0, isDeleting = false;
     const h2 = document.querySelector("#profile h2");
 
     function typeEffect() {
-        if (!h2) return;
-        currentTitle = isDeleting
-            ? titles[i].substring(0, j--)
-            : titles[i].substring(0, j++);
+        const current = titles[i];
+        let updatedText = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
 
-        h2.textContent = currentTitle;
+        if (h2) h2.innerHTML = updatedText + `<span class="cursor">|</span>`;
 
-        if (!isDeleting && j === titles[i].length) {
+        let speed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && updatedText === current) {
             isDeleting = true;
-            setTimeout(typeEffect, 1200);
-        } else if (isDeleting && j === 0) {
+            speed = 1000;
+        } else if (isDeleting && updatedText === '') {
             isDeleting = false;
             i = (i + 1) % titles.length;
-            setTimeout(typeEffect, 400);
-        } else {
-            setTimeout(typeEffect, isDeleting ? 60 : 100);
+            speed = 400;
         }
+
+        setTimeout(typeEffect, speed);
     }
     typeEffect();
 
