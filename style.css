@@ -214,7 +214,7 @@ body {
 
 /* Hero Section */
 .hero {
-  height: 50vh;
+  height: 10vh;
   display: flex;
   align-items: center, top;
   position: relative;
@@ -812,7 +812,7 @@ body {
 
 @media (max-width: 768px) {
   .hero{
-    height: 150vh;
+    height: 100vh;
   }
 
 }
