@@ -1,94 +1,274 @@
-// Wait for DOM to load
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Portfolio website loaded successfully.');
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  
+  document.documentElement.setAttribute('data-theme', currentTheme);
 
-    // ========== Typewriter Effect ==========
-    const titles = ["Full Stack Developer", "MERN Stack Developer", "Web App Architect"];
-    let i = 0, j = 0, isDeleting = false;
-    const h2 = document.querySelector("#profile h2");
+  themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
 
-    function typeEffect() {
-        const current = titles[i];
-        let updatedText = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
+  // Show scroll indicator only on desktop
+function checkScrollIndicator() {
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (window.innerWidth > 768) {
+    scrollIndicator.style.display = 'flex';
+  } else {
+    scrollIndicator.style.display = 'none';
+  }
+}
 
-        if (h2) h2.innerHTML = updatedText + `<span class="cursor">|</span>`;
+// Initial check
+checkScrollIndicator();
 
-        let speed = isDeleting ? 50 : 100;
+// Check on window resize
+window.addEventListener('resize', checkScrollIndicator);
 
-        if (!isDeleting && updatedText === current) {
-            isDeleting = true;
-            speed = 1000;
-        } else if (isDeleting && updatedText === '') {
-            isDeleting = false;
-            i = (i + 1) % titles.length;
-            speed = 400;
-        }
+  // Mobile Navigation
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  menuToggle.addEventListener('click', function() {
+    this.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
 
-        setTimeout(typeEffect, speed);
+  // Close mobile menu when clicking a link
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menuToggle.classList.remove('active');
+      navLinks.classList.remove('active');
+    });
+  });
+
+  // Sticky Navigation on Scroll
+  const navbar = document.querySelector('.floating-nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
     }
-    typeEffect();
-
-    // ========== Scroll-to-top Button ==========
-    const scrollBtn = document.createElement("button");
-    scrollBtn.innerText = "↑";
-    scrollBtn.id = "scrollTopBtn";
-    document.body.appendChild(scrollBtn);
-
-    Object.assign(scrollBtn.style, {
-        position: "fixed",
-        bottom: "30px",
-        right: "30px",
-        padding: "12px 16px",
-        fontSize: "20px",
-        border: "none",
-        borderRadius: "50%",
-        backgroundColor: "#00adb5",
-        color: "#fff",
-        cursor: "pointer",
-        display: "none",
-        zIndex: "1000",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
-        transition: "opacity 0.3s ease-in-out"
-    });
-
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            scrollBtn.style.display = "block";
-            scrollBtn.style.opacity = "1";
-        } else {
-            scrollBtn.style.opacity = "0";
-            setTimeout(() => {
-                if (window.scrollY < 300) scrollBtn.style.display = "none";
-            }, 300);
-        }
-    });
-
-    scrollBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // ========== Reveal Animation ==========
-    const revealElements = document.querySelectorAll('.project-card');
-
-    revealElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(50px)';
-        el.style.transition = 'all 0.6s ease-out';
-    });
-
-    const revealOnScroll = () => {
-        const windowHeight = window.innerHeight;
-
-        revealElements.forEach(el => {
-            const elementTop = el.getBoundingClientRect().top;
-
-            if (elementTop < windowHeight - 80) {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }
+  });
+  
+  // Smooth Scrolling for Anchor Links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
         });
-    };
+      }
+    });
+  });
 
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll(); // Initial call
+  // Active Link Highlighting
+  const sections = document.querySelectorAll('section');
+  const navItems = document.querySelectorAll('.nav-link');
+  
+  window.addEventListener('scroll', function() {
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      
+      if (pageYOffset >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === `#${current}`) {
+        item.classList.add('active');
+      }
+    });
+  });
+
+  // Animate Skill Bars
+  const animateSkillBars = () => {
+    const skillItems = document.querySelectorAll('.skill-item');
+    const skillsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const percent = entry.target.getAttribute('data-percent');
+          const bar = entry.target.querySelector('.skill-bar span');
+          bar.style.width = `${percent}%`;
+          skillsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    skillItems.forEach(item => {
+      skillsObserver.observe(item);
+    });
+  };
+
+  // Skills Data
+  const technologies = {
+    frontend: [
+      { name: "HTML5", icon: "fab fa-html5", percent: 95 },
+      { name: "CSS3", icon: "fab fa-css3-alt", percent: 90 },
+      { name: "JavaScript", icon: "fab fa-js", percent: 85 },
+      { name: "React", icon: "fab fa-react", percent: 80 },
+      { name: "Next.js", icon: "fas fa-code", percent: 75 },
+      { name: "Tailwind CSS", icon: "fas fa-wind", percent: 85 }
+    ],
+    backend: [
+      { name: "Node.js", icon: "fab fa-node-js", percent: 85 },
+      { name: "Express", icon: "fas fa-server", percent: 80 },
+      { name: "Python", icon: "fab fa-python", percent: 75 },
+      { name: "Django", icon: "fas fa-code", percent: 70 },
+      { name: "PHP", icon: "fab fa-php", percent: 65 }
+    ],
+    databases: [
+      { name: "MongoDB", icon: "fas fa-database", percent: 80 },
+      { name: "MySQL", icon: "fas fa-database", percent: 75 },
+      { name: "Firebase", icon: "fas fa-fire", percent: 70 },
+      { name: "PostgreSQL", icon: "fas fa-database", percent: 65 }
+    ],
+    tools: [
+      { name: "Git", icon: "fab fa-git-alt", percent: 85 },
+      { name: "Docker", icon: "fab fa-docker", percent: 70 },
+      { name: "AWS", icon: "fab fa-aws", percent: 65 },
+      { name: "Postman", icon: "fas fa-code", percent: 80 },
+      { name: "VS Code", icon: "fas fa-code", percent: 90 }
+    ]
+  };
+
+  // Render Skills Dynamically
+  const renderSkills = () => {
+    const skillsContainer = document.querySelector('.skills-container');
+    skillsContainer.innerHTML = '';
+
+    for (const category in technologies) {
+      const categoryDiv = document.createElement('div');
+      categoryDiv.className = 'skill-category';
+      
+      const heading = document.createElement('h3');
+      heading.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+      
+      const skillsList = document.createElement('div');
+      skillsList.className = 'skills-list';
+      
+      technologies[category].forEach(tech => {
+        const skillItem = document.createElement('div');
+        skillItem.className = 'skill-item';
+        skillItem.setAttribute('data-percent', tech.percent);
+        
+        skillItem.innerHTML = `
+          <div class="skill-icon">
+            <i class="${tech.icon}"></i>
+          </div>
+          <span>${tech.name}</span>
+          <div class="skill-bar"><span></span></div>
+        `;
+        
+        skillsList.appendChild(skillItem);
+      });
+      
+      categoryDiv.appendChild(heading);
+      categoryDiv.appendChild(skillsList);
+      skillsContainer.appendChild(categoryDiv);
+    }
+
+    // Animate the skill bars after rendering
+    animateSkillBars();
+  };
+
+  renderSkills();
+
+  // Contact Form Handling
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const submitText = document.getElementById('submitText');
+      const submitLoader = document.getElementById('submitLoader');
+      const formMessage = document.getElementById('formMessage');
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Show loading state
+      submitText.textContent = 'Sending...';
+      submitLoader.style.display = 'inline-block';
+      submitBtn.disabled = true;
+      
+      // Save to Firebase
+      saveMessage(name, email, subject, message)
+        .then(() => {
+          // Success
+          formMessage.textContent = 'Message sent successfully!';
+          formMessage.classList.add('success');
+          formMessage.classList.remove('error');
+          contactForm.reset();
+        })
+        .catch((error) => {
+          // Error
+          formMessage.textContent = 'Error sending message. Please try again.';
+          formMessage.classList.add('error');
+          formMessage.classList.remove('success');
+          console.error('Error saving message:', error);
+        })
+        .finally(() => {
+          // Reset button
+          submitText.textContent = 'Send Message';
+          submitLoader.style.display = 'none';
+          submitBtn.disabled = false;
+          formMessage.style.display = 'block';
+          
+          // Hide message after 5 seconds
+          setTimeout(() => {
+            formMessage.style.display = 'none';
+          }, 5000);
+        });
+    });
+  }
+
+  // Project Card Animation
+  const projectCards = document.querySelectorAll('.project-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  projectCards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'all 0.5s ease-out';
+    observer.observe(card);
+  });
+});
+
+document.querySelectorAll('.project-video').forEach(video => {
+  video.addEventListener('mouseenter', () => {
+    video.play();
+  });
+  
+  video.addEventListener('mouseleave', () => {
+    video.pause();
+    video.currentTime = 0;
+  });
 });
