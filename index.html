@@ -1,142 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aatif Shaikh | Full Stack Web Developer</title>
-  <link rel="stylesheet" href="style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <title>Aatif Shaikh | Full Stack Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Profile Section -->
-  <section id="profile" class="section">
-    <div class="container">
-      <img src="Al_Aatif.jpg" alt="Aatif Shaikh" class="profile-pic" />
-      <h1>Hey! I am Aatif Shaikh</h1>
-      <h2>Full Stack Web Developer</h2>
-      <p class="description">
-        <strong>Full Stack Developer | Building Robust & User-Centric Web Applications</strong>
-        <br /><br />
-        "I’m a Full Stack Web Developer with a strong grip on both frontend and backend technologies. I build responsive, user-friendly websites and web apps using modern tools like HTML, CSS, JavaScript, React, Node.js, and MongoDB. I enjoy turning ideas into real-world digital solutions that are fast, secure, and scalable. Always learning, always improving."
-      </p>
-         <h3>Accepting Projects</h3>
-   <p>"🚀 Currently accepting freelance web development projects! <br>Whether you need a modern website, a custom web app, or backend integration. <br> let’s build something amazing together. Feel free to reach out!"</p>
+  <!-- Navigation -->
+  <nav class="floating-nav">
+    <div class="nav-container">
+      <a href="#" class="logo">AS</a>
+      <div class="nav-links">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#projects" class="nav-link">Work</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+        </button>
+      </div>
+      <button class="menu-toggle" aria-label="Menu">
+        <div class="hamburger"></div>
+      </button>
     </div>
-  </section>
+  </nav>
 
-  <!-- Resume & Certificates Section -->
-  <section id="resume" class="section">
-    <div class="container">
-      <h2>Resume & Certificates</h2>
-      <div class="download-links">
-        <a href="Aatif Resume.pdf" download class="download-btn">📄 Download Resume</a>
-        <a href="certificate 11.pdf" download class="download-btn">📜 Download Certificate</a>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h4 class="greeting">Hello, I'm</h4>
+        <h1 class="name">Aatif Shaikh</h1>
+        <h2 class="title">Full Stack Developer</h2>
+        <p class="bio">
+          I build exceptional digital experiences with modern web technologies.
+          Focused on creating clean, efficient code and intuitive user interfaces.
+        </p>
+        <div class="cta-buttons">
+          <a href="#projects" class="btn primary">View Projects</a>
+          <a href="#contact" class="btn secondary">Contact Me</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="image-container">
+          <img src="xyz.png" alt="Aatif Shaikh" loading="lazy">
+        </div>
       </div>
     </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="mouse"></div>
+    </div>
   </section>
-
+<br>
+  <!-- Documents Section -->
+   <div class="section-header">
+      <h2 class="section-title">Documents</h2>
+      <p class="section-subtitle">My Resume And Certificate</p>
+      <br>
+  <section id="home" class="Documents">
+    <div class="download-buttons">
+       <a href="Aatif Resume.pdf" download class="btn download-btn secondary">
+         <i class="fas fa-certificate"></i> Download Resume
+       </a>
+       <a href="certificate 11.pdf" download class="btn download-btn secondary">
+         <i class="fas fa-certificate"></i> Download Certificate
+       </a> 
+    </div>
+  </section>
+<br>
+<br>
   <!-- Projects Section -->
-  <section id="projects" class="section">
-    <div class="container">
-      <h2>My Projects</h2>
-      <h3 class="project-note">" Future projects will be updated "</h3>
-      <div class="project-grid">
-        <div class="project-card">
-          <img src="spoty.jpeg" alt="Spotify Clone Project" class="project-img" />
-          <h3>"Spotify"</h3>
-          <p>A clone of a famous music app. Technologies used: HTML, CSS, and Bootstrap.</p>
-          <a href="https://aatifshaikh01.github.io/Project/" class="project-link" target="_blank">View Project</a>
+  <section id="projects" class="projects-section">
+    <div class="section-header">
+      <h2 class="section-title">Selected Work</h2>
+      <p class="section-subtitle">Projects that showcase my skills</p>
+    </div>
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="project-image">
+          <img src="spoty.jpeg" alt="Spotify Clone" loading="lazy">
         </div>
-
-        <div class="project-card">
-          <img src="bubble.jpg" alt="Bubble Game Project" class="project-img" />
-          <h3>"Bubble Game"</h3>
-          <p>A fun self-made learning project using HTML, CSS, JavaScript, Node.js, and more.</p>
-          <a href="https://aatifshaikh01.github.io/Bubble-Game-/" class="project-link" target="_blank">View Project</a>
-        </div>
-          
-        <div class="project-card">
-          <img src="Air bnb.jpg" alt="Hotel booking Project" class="project-img" />
-          <h3>"Air bnb"</h3>
-          <p>Technologies used: HTML, CSS, and Bootstrap , JAVASCRIPT , NODE.JS , EXPRESS.JS ,MongoDB .</p>
-          <a href="https://delta-mrk-project.onrender.com/listings/" class="project-link" target="_blank">View Project</a>
-        </div>
-        
-        <div class="project-card">
-          <img src="freefire01.jpg" alt="Freefire" class="project-img" />
-          <h3>"Freefire Tournament Registration"</h3>
-          <p>A fun self-made learning project using HTML, CSS, JavaScript, Node.js, and Razorpay System.</p>
-          <a href="https://aatifshaikh01.github.io/Freefire/" class="project-link" target="_blank">View Project</a>
-        </div>
-
-        <div class="project-card">
-          <img src="m.photo.jpg" alt="Medical" class="project-img" />
-          <h3>"Medicines Manager"</h3>
-          <p>A fun self-made learning project using HTML, CSS, JavaScript, Node.js, and python.</p>
-          <a href="https://aatifshaikh01.github.io/Medical-Inventory-/" class="project-link" target="_blank">View Project</a>
-        </div>
-
-        <div class="project-card">
-          <video width="100%" controls>
-            <source src="Video 2.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <h3>"Amazon Clone"</h3>
-          <p>Due to security and copyright concerns, the source code is not publicly available, that's why you can't reach the website. However,the functionality is showcased in the video demo.</p>
-        </div>
-
-        <div class="project-card">
-          <video width="100%" controls>
-            <source src="Video 1.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <h3>"Netflix Clone"</h3>
-          <p>Due to security and copyright concerns, the source code is not publicly available, that's why you can't reach the website. However,the functionality is showcased in the video demo.</p>
+        <div class="project-info">
+          <h3>Spotify Clone</h3>
+          <p>A responsive clone of Spotify with playback functionality</p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://aatifshaikh01.github.io/Project/" target="_blank" class="link-btn">Live Demo</a>
+            <!-- <a href="https://github.com/AatifShaikh01/Project" target="_blank" class="link-btn secondary">Code</a> -->
+          </div>
         </div>
       </div>
+      
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="project-image">
+          <img src="bubble.jpg" alt="Bubble Game" loading="lazy">
+        </div>
+        <div class="project-info">
+          <h3>Bubble Game</h3>
+          <p>Interactive bubble popping game with score tracking. A self-made learning project.</p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Node.js</span>
+          </div>
+          <div class="project-links">
+            <a href="https://aatifshaikh01.github.io/Bubble-Game-/" target="_blank" class="link-btn">Live Demo</a>
+            <!-- <a href="https://github.com/AatifShaikh01/Bubble-Game-" target="_blank" class="link-btn secondary">Code</a> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="project-image">
+          <img src="Air bnb.jpg" alt="Hotel Booking" loading="lazy">
+        </div>
+        <div class="project-info">
+          <h3>Air BNB The Hotel Booking App</h3>
+          <p>A fully responsive  website that helps you to book hotels directly from your phone. It also allows you to make advance bookings.</p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Bootstrap</span>
+            <span>Node.js</span>
+            <span>Express.js</span>
+            <span>MongoDB</span>
+          </div>
+          <div class="project-links">
+            <a href="https://delta-mrk-project.onrender.com/listings/" target="_blank" class="link-btn">Live Demo</a>
+            <!-- <a href="https://github.com/AatifShaikh01/Project" target="_blank" class="link-btn secondary">Code</a> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 - Video Version -->
+<div class="project-card">
+  <div class="project-media">
+    <video class="project-video" controls muted loop poster="#">
+      <source src="Video 2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="project-info">
+    <h3>Amazon Clone</h3>
+    <p>A fully responsive website made by us as a practice porject.</p>
+    <div class="project-tags">
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>JavaScript</span>
+      <span>Bootstrap</span>
+      <span>Node.js</span>
+      <span>Express.js</span>
+      <span>MongoDB</span>
+    </div>
+    <div class="project-links">
+      <!-- <a href="https://delta-mrk-project.onrender.com/listings/" target="_blank" class="link-btn">Live Demo</a> -->
+      <!-- <a href="https://github.com/AatifShaikh01/Project" target="_blank" class="link-btn secondary">Code</a> -->
+    </div>
+  </div>
+</div>
+
+      <!-- Project 5 - Video Version -->
+<div class="project-card">
+  <div class="project-media">
+    <video class="project-video" controls muted loop poster="#">
+      <source src="Video 1.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="project-info">
+    <h3>Netflix Clone</h3>
+    <p>A fully responsive website made by us as a practice porject..</p>
+    <div class="project-tags">
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>JavaScript</span>
+      <span>Bootstrap</span>
+      <span>Node.js</span>
+      <span>Express.js</span>
+      <span>MongoDB</span>
+    </div>
+    <div class="project-links">
+      <!-- <a href="https://delta-mrk-project.onrender.com/listings/" target="_blank" class="link-btn">Live Demo</a> -->
+      <!-- <a href="https://github.com/AatifShaikh01/Project" target="_blank" class="link-btn secondary">Code</a> -->
+    </div>
+  </div>
+</div>
+      
+      <!-- Add other projects similarly -->
     </div>
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="section">
-    <div class="container">
-      <h2>My Skills</h2>
-      <div class="skills-grid">
-        <span class="skill">HTML</span>
-        <span class="skill">CSS</span>
-        <span class="skill">JavaScript</span>
-        <span class="skill">React</span>
-        <span class="skill">Node.js</span>
-        <span class="skill">MongoDB</span>
-        <span class="skill">Git</span>
-        <span class="skill">MySQL</span>
-        <span class="skill">Next.js</span>
-        <span class="skill">REST APIs</span>
-        <span class="skill">Firebase</span>
-        <span class="skill">Tailwind CSS</span>
-        <span class="skill">Bootstrap</span>
-      </div>
+  <section id="skills" class="skills-section">
+    <div class="section-header">
+      <h2 class="section-title">Technical Skills</h2>
+      <p class="section-subtitle">Technologies I work with</p>
+    </div>
+    <div class="skills-container">
+      <!-- Skills will be dynamically added by JavaScript -->
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="section">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <p>Email: <a href="mailto:shaikhaatif7557@gmail.com">shaikhaatif7557@gmail.com</a></p>
-      <p>Phone: <a href="tel:+918975570113">+91 897-557-0113</a></p>
-      <div class="social-links">
-        <a href="https://github.com/AatifShaikh01" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/in/shaikh-aatif-975361285" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.instagram.com/al__aatif?igsh=ZnBkcndqeDZwOTky" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.facebook.com/share/16awnA7Yx8/" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://wa.me/918975570113" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  <section id="contact" class="contact-section">
+    <div class="section-header">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">I'll respond within 24 hours</p>
+    </div>
+    <div class="contact-container">
+      <form id="contactForm" class="contact-form">
+        <div class="form-group">
+          <input type="text" id="name" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" placeholder="Your Email" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="subject" placeholder="Subject" required>
+        </div>
+        <div class="form-group">
+          <textarea id="message" placeholder="Your Message" required></textarea>
+        </div>
+        <button type="submit" class="btn primary">
+          <span id="submitText">Send Message</span>
+          <div id="submitLoader" class="loader"></div>
+        </button>
+        <p id="formMessage" class="form-message"></p>
+      </form>
+      <div class="contact-info">
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <span>shaikhaatif7557@gmail.com</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-phone"></i>
+          <span>+91 897-557-0113</span>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/AatifShaikh01" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/shaikh-aatif-975361285" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/al__aatif" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/918975570113" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
       </div>
     </div>
   </section>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>© 2025 Aatif Shaikh. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+  
+  <script src="firebase-config.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
