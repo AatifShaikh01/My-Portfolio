@@ -812,3 +812,38 @@ body {
   }
 
 }
+
+/* Hero Section Mobile Fix */
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    padding: 100px 0 50px;
+  }
+  
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .hero-text {
+    order: 2;
+    text-align: center;
+    padding: 0 15px;
+  }
+  
+  .hero-image {
+    order: 1;
+    margin: 0 auto;
+  }
+  
+  .image-container {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .scroll-indicator {
+    position: relative;
+    bottom: auto;
+    margin-top: 40px;
+  }
+}
