@@ -283,47 +283,38 @@ window.addEventListener('load', function() {
   }, 5000);
 });
 
-document.getElementById('emailBtn').addEventListener('click', function() {
+document.getElementById('submitBtn').addEventListener('click', function() {
+  const form = document.getElementById('contactForm');
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
-  const subject = document.getElementById('subject').value;
+  const subject = document.getElementById('subject').value || "Portfolio Query";
   const message = document.getElementById('message').value;
 
   // Validation
   if (!name || !email || !message) {
-    document.getElementById('formMessage').textContent = "All fields are required!";
-    document.getElementById('formMessage').className = "form-message error";
+    showMessage("All fields are required!", "error");
     return;
   }
 
-  // Format email body
-  const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+  // Send via Gmail
+  const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${message}`;
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif7557@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   
-  // Create a hidden form to force Gmail/Outlook web
-  const hiddenForm = document.createElement('form');
-  hiddenForm.action = 'https://mail.google.com/mail/?view=cm&fs=1';
-  hiddenForm.method = 'POST';
-  hiddenForm.target = '_blank';
+  window.open(gmailUrl, '_blank');
   
-  hiddenForm.innerHTML = `
-    <input type="hidden" name="to" value="shaikhaatif7557@gmail.com">
-    <input type="hidden" name="su" value="${subject}">
-    <input type="hidden" name="body" value="${body}">
-  `;
-  
-  document.body.appendChild(hiddenForm);
-  hiddenForm.submit();
-  document.body.removeChild(hiddenForm);
-
-  // Success message
-  document.getElementById('formMessage').textContent = "Redirecting to Gmail...";
-  document.getElementById('formMessage').className = "form-message success";
+  // Clear form and show success
+  form.reset();
+  showMessage("Message sent successfully!", "success");
 });
 
-// Fallback for non-Gmail users
-setTimeout(() => {
-  if (window.closed) { // If Gmail failed to open
-    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-    window.open(`mailto:shaikhaatif7557@gmail.com?subject=${subject}&body=${body}`);
-  }
-}, 1000);
+function showMessage(text, type) {
+  const msg = document.getElementById('formMessage');
+  msg.textContent = text;
+  msg.className = `form-message ${type}`;
+  msg.style.display = 'block';
+  
+  // Auto-hide message after 5 seconds
+  setTimeout(() => {
+    msg.style.display = 'none';
+  }, 5000);
+}
