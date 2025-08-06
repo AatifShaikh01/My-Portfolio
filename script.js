@@ -272,3 +272,13 @@ document.querySelectorAll('.project-video').forEach(video => {
     video.currentTime = 0;
   });
 });
+
+// Remove splash screen after animation completes
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    const splash = document.querySelector('.splash-screen');
+    if (splash) {
+      splash.style.display = 'none';
+    }
+  }, 5000);
+});
