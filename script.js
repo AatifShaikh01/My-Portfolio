@@ -283,34 +283,26 @@ window.addEventListener('load', function() {
   }, 5000);
 });
 
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
+document.getElementById('emailBtn').addEventListener('click', function() {
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
+  const subject = document.getElementById('subject').value;
   const message = document.getElementById('message').value;
-  
-  // Format message for WhatsApp
-  const whatsappMessage = `*New Message From Portfolio*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
-  
-  // Open WhatsApp with pre-filled message
-  window.open(`https://wa.me/918975570113?text=${whatsappMessage}`, '_blank');
-});
 
-/* ========== WHATSAPP FUNCTION ========== */
-document.getElementById('whatsappBtn').addEventListener('click', function() {
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
-  
-  const text = `*Portfolio Message*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
-  
-  // Mobile/Desktop detection
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const whatsappUrl = isMobile ? 
-    `whatsapp://send?phone=918975570113&text=${text}` : 
-    `https://web.whatsapp.com/send?phone=918975570113&text=${text}`;
-  
-  // Open link
-  window.open(whatsappUrl, '_blank');
+  // Validate inputs
+  if (!name || !email || !message) {
+    document.getElementById('formMessage').textContent = "All fields are required!";
+    document.getElementById('formMessage').className = "form-message error";
+    return;
+  }
+
+  // Format email body
+  const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+
+  // Open default email client
+  window.open(`mailto:shaikhaatif7557@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+
+  // Show success message
+  document.getElementById('formMessage').textContent = "Email client opened! Complete sending from there.";
+  document.getElementById('formMessage').className = "form-message success";
 });
