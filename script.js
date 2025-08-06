@@ -220,6 +220,60 @@ document.querySelectorAll('.project-video').forEach(video => {
   });
 });
 
+
+  // Contact Form Handling
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const submitText = document.getElementById('submitText');
+      const submitLoader = document.getElementById('submitLoader');
+      const formMessage = document.getElementById('formMessage');
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Show loading state
+      submitText.textContent = 'Sending...';
+      submitLoader.style.display = 'inline-block';
+      submitBtn.disabled = true;
+      
+      // Save to Firebase
+      saveMessage(name, email, subject, message)
+        .then(() => {
+          // Success
+          formMessage.textContent = 'Message sent successfully!';
+          formMessage.classList.add('success');
+          formMessage.classList.remove('error');
+          contactForm.reset();
+        })
+        .catch((error) => {
+          // Error
+          formMessage.textContent = 'Error sending message. Please try again.';
+          formMessage.classList.add('error');
+          formMessage.classList.remove('success');
+          console.error('Error saving message:', error);
+        })
+        .finally(() => {
+          // Reset button
+          submitText.textContent = 'Send Message';
+          submitLoader.style.display = 'none';
+          submitBtn.disabled = false;
+          formMessage.style.display = 'block';
+          
+          // Hide message after 5 seconds
+          setTimeout(() => {
+            formMessage.style.display = 'none';
+          }, 5000);
+        });
+    });
+  }
+
 // Remove splash screen after animation completes
 window.addEventListener('load', function() {
   setTimeout(function() {
@@ -230,44 +284,3 @@ window.addEventListener('load', function() {
   }, 5000);
 });
 
-document.getElementById('whatsappBtn').addEventListener('click', function() {
-  // 1. Get form values
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const message = document.getElementById('message').value.trim();
-
-  // 2. Validation
-  if (!name || !email || !message) {
-    showMessage("Please fill all fields!", "error");
-    return;
-  }
-
-  // 3. Format WhatsApp message
-  const whatsappText = `*New Message From Portfolio*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
-  const whatsappUrl = `https://wa.me/918975570113?text=${whatsappText}`;
-
-  // 4. Open WhatsApp
-  const newWindow = window.open(whatsappUrl, '_blank');
-  
-  // 5. Clear form if WhatsApp opened successfully
-  if (newWindow) {
-    document.getElementById('contactForm').reset();
-    showMessage("Message sent! Form cleared.", "success");
-  } else {
-    showMessage("Allow pop-ups for WhatsApp", "error");
-  }
-});
-
-// Helper function for messages
-function showMessage(text, type) {
-  const msg = document.getElementById('formMessage');
-  msg.textContent = text;
-  msg.className = `form-message ${type}`;
-  msg.style.display = 'block';
-  setTimeout(() => msg.style.display = 'none', 5000);
-}
-  formMessage.textContent = "Gmail opened! Form cleared.";
-  formMessage.style.display = "block";
-  submitBtn.disabled = false;
-  submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-});
