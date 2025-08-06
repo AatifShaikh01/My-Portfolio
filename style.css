@@ -35,6 +35,7 @@ html {
 }
 
 body {
+  padding-top: 80px;
   font-family: 'Inter', sans-serif;
   background-color: var(--light);
   color: var(--text);
