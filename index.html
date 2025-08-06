@@ -234,21 +234,18 @@
       <p class="section-subtitle">I'll respond within 24 hours</p>
     </div>
     <div class="contact-container">
-<form form action="mailto:shaikhaatif7557@gmail.com" method="post" enctype="text/plain"">
+<form id="contactForm" class="contact-form">
   <div class="form-group">
-    <input type="text" id="name" name="name" placeholder="Your Name" required>
+    <input type="text" id="name" placeholder="Your Name" required>
   </div>
   <div class="form-group">
-    <input type="email" id="email" name="email" placeholder="Your Email" required>
+    <input type="email" id="email" placeholder="Your Email" required>
   </div>
   <div class="form-group">
-    <input type="text" id="subject" name="subject" placeholder="Subject" required>
+    <textarea id="message" placeholder="Your Message" required></textarea>
   </div>
-  <div class="form-group">
-    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-  </div>
-  <button type="submit" id="submitBtn" class="btn primary">
-    <i class="fas fa-paper-plane"></i> Send Message
+  <button type="button" id="whatsappBtn" class="btn primary">
+    <i class="fab fa-whatsapp"></i> Send Message
   </button>
   <p id="formMessage" class="form-message"></p>
 </form>
