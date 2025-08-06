@@ -950,3 +950,20 @@ body {
   background: #ffebee;
   color: #c62828;
 }
+
+/* Remove top padding on mobile */
+@media (max-width: 768px) {
+  body {
+    padding-top: 0 !important; /* Force remove padding */
+  }
+  
+  /* Adjust navbar height on mobile */
+  .navbar {
+    height: 60px; /* Reduce navbar height */
+  }
+  
+  /* Ensure content touches top */
+  .hero {
+    padding-top: 60px !important; /* Match navbar height */
+  }
+}
