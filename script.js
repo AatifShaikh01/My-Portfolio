@@ -283,55 +283,44 @@ window.addEventListener('load', function() {
   }, 5000);
 });
 
-// script.js - Full Working Code
-document.addEventListener('DOMContentLoaded', function() {
-
-  // 1. Get Form Elements
-  const contactForm = document.getElementById('contactForm');
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const form = e.target;
+  const formData = new FormData(form);
   const submitBtn = document.getElementById('submitBtn');
   const formMessage = document.getElementById('formMessage');
 
-  // 2. Handle Form Submission
-  submitBtn.addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent page reload
+  // Show loading state
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-    // 3. Get Form Values
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const subject = document.getElementById('subject').value.trim() || "Portfolio Query";
-    const message = document.getElementById('message').value.trim();
-
-    // 4. Validation
-    if (!name || !email || !message) {
-      showMessage("Please fill all required fields!", "error");
-      return;
-    }
-
-    // 5. Format Gmail URL
-    const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${message}`;
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // 6. Open Gmail
-    const newWindow = window.open(gmailUrl, '_blank');
-    
-    // 7. Clear Form if Gmail opened successfully
-    if (newWindow) {
-      contactForm.reset();
-      showMessage("Message ready in Gmail! Form cleared.", "success");
+  // Send data to server (Replace URL with your backend)
+  fetch('https://your-backend-api.com/send-email', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      form.reset(); // Clear form
+      showMessage("Message sent successfully!", "success");
     } else {
-      showMessage("Allow pop-ups to open Gmail", "error");
+      showMessage(data.error || "Failed to send message", "error");
     }
+  })
+  .catch(error => {
+    showMessage("Network error. Please try again.", "error");
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
   });
 
-  // Helper Function to Show Messages
   function showMessage(text, type) {
     formMessage.textContent = text;
     formMessage.className = `form-message ${type}`;
     formMessage.style.display = 'block';
-    
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-      formMessage.style.display = 'none';
-    }, 5000);
+    setTimeout(() => formMessage.style.display = 'none', 5000);
   }
 });
