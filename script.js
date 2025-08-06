@@ -296,3 +296,21 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   // Open WhatsApp with pre-filled message
   window.open(`https://wa.me/918975570113?text=${whatsappMessage}`, '_blank');
 });
+
+/* ========== WHATSAPP FUNCTION ========== */
+document.getElementById('whatsappBtn').addEventListener('click', function() {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  
+  const text = `*Portfolio Message*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
+  
+  // Mobile/Desktop detection
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const whatsappUrl = isMobile ? 
+    `whatsapp://send?phone=918975570113&text=${text}` : 
+    `https://web.whatsapp.com/send?phone=918975570113&text=${text}`;
+  
+  // Open link
+  window.open(whatsappUrl, '_blank');
+});
