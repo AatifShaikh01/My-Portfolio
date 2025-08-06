@@ -946,32 +946,6 @@ body {
   }
 }
 
-/* WhatsApp Button Styling */
-.btn.primary {
-  background: #25D366 !important; /* WhatsApp green */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.btn.primary:hover {
-  background: #128C7E !important;
-}
-
-/* Form Messages */
-.form-message {
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 5px;
-  display: none;
-}
-
-.form-message.success {
-  background: #e6ffed;
-  color: #2e7d32;
-}
-
 .form-message.error {
   background: #ffebee;
   color: #c62828;
