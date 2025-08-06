@@ -310,7 +310,7 @@ body {
 
 /* Hero Section */
 .hero {
-  height: 90vh;
+  height: 80vh;
   display: flex;
   align-items: center, top;
   position: relative;
