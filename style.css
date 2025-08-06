@@ -945,3 +945,12 @@ body {
     margin-top: 40px;
   }
 }
+
+#formMessage {
+  display: none;
+  margin-top: 15px;
+  padding: 10px;
+  background: #f0f0f0;
+}
+.fa-spinner { animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
