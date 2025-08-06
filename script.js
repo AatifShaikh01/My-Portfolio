@@ -190,59 +190,6 @@ window.addEventListener('resize', checkScrollIndicator);
 
   renderSkills();
 
-  // Contact Form Handling
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const submitBtn = this.querySelector('button[type="submit"]');
-      const submitText = document.getElementById('submitText');
-      const submitLoader = document.getElementById('submitLoader');
-      const formMessage = document.getElementById('formMessage');
-      
-      // Get form values
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const subject = document.getElementById('subject').value;
-      const message = document.getElementById('message').value;
-      
-      // Show loading state
-      submitText.textContent = 'Sending...';
-      submitLoader.style.display = 'inline-block';
-      submitBtn.disabled = true;
-      
-      // Save to Firebase
-      saveMessage(name, email, subject, message)
-        .then(() => {
-          // Success
-          formMessage.textContent = 'Message sent successfully!';
-          formMessage.classList.add('success');
-          formMessage.classList.remove('error');
-          contactForm.reset();
-        })
-        .catch((error) => {
-          // Error
-          formMessage.textContent = 'Error sending message. Please try again.';
-          formMessage.classList.add('error');
-          formMessage.classList.remove('success');
-          console.error('Error saving message:', error);
-        })
-        .finally(() => {
-          // Reset button
-          submitText.textContent = 'Send Message';
-          submitLoader.style.display = 'none';
-          submitBtn.disabled = false;
-          formMessage.style.display = 'block';
-          
-          // Hide message after 5 seconds
-          setTimeout(() => {
-            formMessage.style.display = 'none';
-          }, 5000);
-        });
-    });
-  }
-
   // Project Card Animation
   const projectCards = document.querySelectorAll('.project-card');
   const observer = new IntersectionObserver((entries) => {
@@ -283,44 +230,33 @@ window.addEventListener('load', function() {
   }, 5000);
 });
 
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  const form = e.target;
-  const formData = new FormData(form);
-  const submitBtn = document.getElementById('submitBtn');
-  const formMessage = document.getElementById('formMessage');
+const express = require('express');
+const nodemailer = require('nodemailer');
+const app = express();
 
-  // Show loading state
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-
-  // Send data to server (Replace URL with your backend)
-  fetch('https://your-backend-api.com/send-email', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      form.reset(); // Clear form
-      showMessage("Message sent successfully!", "success");
-    } else {
-      showMessage(data.error || "Failed to send message", "error");
+app.post('/send-email', (req, res) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'shaikhaatif7557@gmail.com',
+      pass: 'Javeria21' // Use App Password
     }
-  })
-  .catch(error => {
-    showMessage("Network error. Please try again.", "error");
-  })
-  .finally(() => {
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
   });
 
-  function showMessage(text, type) {
-    formMessage.textContent = text;
-    formMessage.className = `form-message ${type}`;
-    formMessage.style.display = 'block';
-    setTimeout(() => formMessage.style.display = 'none', 5000);
-  }
+  const mailOptions = {
+    from: req.body.email,
+    to: 'shaikhaatif7557@gmail.com',
+    subject: req.body.subject,
+    text: `Name: ${req.body.name}\nEmail: ${req.body.email}\n\nMessage:\n${req.body.message}`
+  };
+
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      res.json({ success: false, error: error.message });
+    } else {
+      res.json({ success: true });
+    }
+  });
 });
+
+app.listen(3000);
