@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 5. Format Gmail URL
     const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${message}`;
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=YOUR_EMAIL@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     // 6. Open Gmail
     const newWindow = window.open(gmailUrl, '_blank');
