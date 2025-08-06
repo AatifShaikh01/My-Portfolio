@@ -244,7 +244,7 @@ document.getElementById('whatsappBtn').addEventListener('click', function() {
 
   // 3. Format WhatsApp message
   const whatsappText = `*New Message From Portfolio*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
-  const whatsappUrl = `https://wa.me/919999999999?text=${whatsappText}`; // Replace with your number
+  const whatsappUrl = `https://wa.me/918975570113?text=${whatsappText}`;
 
   // 4. Open WhatsApp
   const newWindow = window.open(whatsappUrl, '_blank');
