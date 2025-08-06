@@ -311,7 +311,7 @@ body {
 
 /* Hero Section */
 .hero {
-  height: 80vh;
+  height: 90vh;
   display: flex;
   align-items: center, top;
   position: relative;
