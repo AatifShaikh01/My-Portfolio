@@ -296,25 +296,30 @@ document.getElementById('submitBtn').addEventListener('click', function() {
     return;
   }
 
-  // Send via Gmail
-  const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${message}`;
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif7557@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  // Encode message properly
+  const body = `Name: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0A%0AMessage:%0A${encodeURIComponent(message)}`;
   
-  window.open(gmailUrl, '_blank');
+  // Force Gmail to accept pre-filled data
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif7557@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
   
-  // Clear form and show success
-  form.reset();
-  showMessage("Message sent successfully!", "success");
+  // Open Gmail in new tab
+  const mailWindow = window.open(gmailUrl, '_blank');
+  
+  // Clear form ONLY if Gmail opened successfully
+  if (mailWindow) {
+    form.reset();
+    showMessage("Message ready in Gmail! Form cleared.", "success");
+  } else {
+    showMessage("Allow pop-ups for Gmail", "error");
+  }
 });
 
+// Helper function for messages
 function showMessage(text, type) {
   const msg = document.getElementById('formMessage');
   msg.textContent = text;
   msg.className = `form-message ${type}`;
   msg.style.display = 'block';
   
-  // Auto-hide message after 5 seconds
-  setTimeout(() => {
-    msg.style.display = 'none';
-  }, 5000);
+  setTimeout(() => msg.style.display = 'none', 5000);
 }
