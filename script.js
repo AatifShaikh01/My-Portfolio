@@ -285,10 +285,10 @@ window.addEventListener('load', function() {
 
 document.getElementById('submitBtn').addEventListener('click', function() {
   const form = document.getElementById('contactForm');
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const subject = document.getElementById('subject').value || "Portfolio Query";
-  const message = document.getElementById('message').value;
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const subject = document.getElementById('subject').value.trim() || "Portfolio Query";
+  const message = document.getElementById('message').value.trim();
 
   // Validation
   if (!name || !email || !message) {
@@ -296,30 +296,32 @@ document.getElementById('submitBtn').addEventListener('click', function() {
     return;
   }
 
-  // Encode message properly
-  const body = `Name: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0A%0AMessage:%0A${encodeURIComponent(message)}`;
-  
-  // Force Gmail to accept pre-filled data
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif7557@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
-  
-  // Open Gmail in new tab
-  const mailWindow = window.open(gmailUrl, '_blank');
-  
-  // Clear form ONLY if Gmail opened successfully
-  if (mailWindow) {
-    form.reset();
-    showMessage("Message ready in Gmail! Form cleared.", "success");
-  } else {
-    showMessage("Allow pop-ups for Gmail", "error");
-  }
+  // Create hidden form for Gmail
+  const hiddenForm = document.createElement('form');
+  hiddenForm.action = 'https://mail.google.com/mail/?view=cm&fs=1';
+  hiddenForm.method = 'post';
+  hiddenForm.target = '_blank';
+  hiddenForm.style.display = 'none';
+
+  hiddenForm.innerHTML = `
+    <input type="hidden" name="to" value="shaikhaatif7557@gmail.com">
+    <input type="hidden" name="su" value="${subject.replace(/"/g, '&quot;')}">
+    <input type="hidden" name="body" value="Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}">
+  `;
+
+  document.body.appendChild(hiddenForm);
+  hiddenForm.submit();
+  document.body.removeChild(hiddenForm);
+
+  // Clear form and show success
+  form.reset();
+  showMessage("Gmail opened with your message!", "success");
 });
 
-// Helper function for messages
 function showMessage(text, type) {
   const msg = document.getElementById('formMessage');
   msg.textContent = text;
   msg.className = `form-message ${type}`;
   msg.style.display = 'block';
-  
   setTimeout(() => msg.style.display = 'none', 5000);
 }
