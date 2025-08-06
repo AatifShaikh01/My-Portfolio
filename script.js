@@ -230,29 +230,42 @@ window.addEventListener('load', function() {
   }, 5000);
 });
 
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+document.getElementById('whatsappBtn').addEventListener('click', function() {
+  // 1. Get form values
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  // 2. Validation
+  if (!name || !email || !message) {
+    showMessage("Please fill all fields!", "error");
+    return;
+  }
+
+  // 3. Format WhatsApp message
+  const whatsappText = `*New Message From Portfolio*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
+  const whatsappUrl = `https://wa.me/919999999999?text=${whatsappText}`; // Replace with your number
+
+  // 4. Open WhatsApp
+  const newWindow = window.open(whatsappUrl, '_blank');
   
-  const form = e.target;
-  const submitBtn = document.getElementById('submitBtn');
-  const formMessage = document.getElementById('formMessage');
+  // 5. Clear form if WhatsApp opened successfully
+  if (newWindow) {
+    document.getElementById('contactForm').reset();
+    showMessage("Message sent! Form cleared.", "success");
+  } else {
+    showMessage("Allow pop-ups for WhatsApp", "error");
+  }
+});
 
-  // Show loading state
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-
-  // Method 1: Gmail Redirect (No backend needed)
-  const name = form.name.value;
-  const email = form.email.value;
-  const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${form.message.value}`;
-  
-  window.open(
-    `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif7557@gmail.com&su=Portfolio%20Message&body=${body}`,
-    '_blank'
-  );
-
-  // Clear form and show success
-  form.reset();
+// Helper function for messages
+function showMessage(text, type) {
+  const msg = document.getElementById('formMessage');
+  msg.textContent = text;
+  msg.className = `form-message ${type}`;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 5000);
+}
   formMessage.textContent = "Gmail opened! Form cleared.";
   formMessage.style.display = "block";
   submitBtn.disabled = false;
