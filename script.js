@@ -230,33 +230,31 @@ window.addEventListener('load', function() {
   }, 5000);
 });
 
-const express = require('express');
-const nodemailer = require('nodemailer');
-const app = express();
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const form = e.target;
+  const submitBtn = document.getElementById('submitBtn');
+  const formMessage = document.getElementById('formMessage');
 
-app.post('/send-email', (req, res) => {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'shaikhaatif7557@gmail.com',
-      pass: 'Javeria21' // Use App Password
-    }
-  });
+  // Show loading state
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-  const mailOptions = {
-    from: req.body.email,
-    to: 'shaikhaatif7557@gmail.com',
-    subject: req.body.subject,
-    text: `Name: ${req.body.name}\nEmail: ${req.body.email}\n\nMessage:\n${req.body.message}`
-  };
+  // Method 1: Gmail Redirect (No backend needed)
+  const name = form.name.value;
+  const email = form.email.value;
+  const body = `Name: ${name}%0AEmail: ${email}%0A%0AMessage:%0A${form.message.value}`;
+  
+  window.open(
+    `https://mail.google.com/mail/?view=cm&fs=1&to=shaikhaatif7557@gmail.com&su=Portfolio%20Message&body=${body}`,
+    '_blank'
+  );
 
-  transporter.sendMail(mailOptions, (error) => {
-    if (error) {
-      res.json({ success: false, error: error.message });
-    } else {
-      res.json({ success: true });
-    }
-  });
+  // Clear form and show success
+  form.reset();
+  formMessage.textContent = "Gmail opened! Form cleared.";
+  formMessage.style.display = "block";
+  submitBtn.disabled = false;
+  submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
 });
-
-app.listen(3000);
