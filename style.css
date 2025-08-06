@@ -946,11 +946,33 @@ body {
   }
 }
 
-#formMessage {
-  display: none;
+/* WhatsApp Button Styling */
+.btn.primary {
+  background: #25D366 !important; /* WhatsApp green */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn.primary:hover {
+  background: #128C7E !important;
+}
+
+/* Form Messages */
+.form-message {
   margin-top: 15px;
   padding: 10px;
-  background: #f0f0f0;
+  border-radius: 5px;
+  display: none;
 }
-.fa-spinner { animation: spin 1s linear infinite; }
-@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.form-message.success {
+  background: #e6ffed;
+  color: #2e7d32;
+}
+
+.form-message.error {
+  background: #ffebee;
+  color: #c62828;
+}
