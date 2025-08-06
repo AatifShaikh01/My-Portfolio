@@ -289,7 +289,7 @@ document.getElementById('emailBtn').addEventListener('click', function() {
   const subject = document.getElementById('subject').value;
   const message = document.getElementById('message').value;
 
-  // Validate inputs
+  // Validation
   if (!name || !email || !message) {
     document.getElementById('formMessage').textContent = "All fields are required!";
     document.getElementById('formMessage').className = "form-message error";
@@ -297,12 +297,33 @@ document.getElementById('emailBtn').addEventListener('click', function() {
   }
 
   // Format email body
-  const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+  const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+  
+  // Create a hidden form to force Gmail/Outlook web
+  const hiddenForm = document.createElement('form');
+  hiddenForm.action = 'https://mail.google.com/mail/?view=cm&fs=1';
+  hiddenForm.method = 'POST';
+  hiddenForm.target = '_blank';
+  
+  hiddenForm.innerHTML = `
+    <input type="hidden" name="to" value="shaikhaatif7557@gmail.com">
+    <input type="hidden" name="su" value="${subject}">
+    <input type="hidden" name="body" value="${body}">
+  `;
+  
+  document.body.appendChild(hiddenForm);
+  hiddenForm.submit();
+  document.body.removeChild(hiddenForm);
 
-  // Open default email client
-  window.open(`mailto:shaikhaatif7557@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-
-  // Show success message
-  document.getElementById('formMessage').textContent = "Email client opened! Complete sending from there.";
+  // Success message
+  document.getElementById('formMessage').textContent = "Redirecting to Gmail...";
   document.getElementById('formMessage').className = "form-message success";
 });
+
+// Fallback for non-Gmail users
+setTimeout(() => {
+  if (window.closed) { // If Gmail failed to open
+    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+    window.open(`mailto:shaikhaatif7557@gmail.com?subject=${subject}&body=${body}`);
+  }
+}, 1000);
