@@ -282,3 +282,17 @@ window.addEventListener('load', function() {
     }
   }, 5000);
 });
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  
+  // Format message for WhatsApp
+  const whatsappMessage = `*New Message From Portfolio*%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A*Message:* ${message}`;
+  
+  // Open WhatsApp with pre-filled message
+  window.open(`https://wa.me/918975570113?text=${whatsappMessage}`, '_blank');
+});
