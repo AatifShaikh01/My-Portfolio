@@ -954,7 +954,7 @@ body {
 /* Remove top padding on mobile */
 @media (max-width: 768px) {
   body {
-    padding-top: 0 !important; /* Force remove padding */
+    padding-top: 50px !important; /* Force remove padding */
   }
   
   /* Adjust navbar height on mobile */
