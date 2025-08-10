@@ -92,6 +92,9 @@ body {
   background: rgba(255,255,255,0.2);
   border-radius: 2px;
   overflow: hidden;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .loading-bar::after {
