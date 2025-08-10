@@ -380,7 +380,7 @@ body {
   background: transparent;
   color: var(--primary);
   border: 1px solid var(--primary);
-  padding: 10px;
+  margin: 10px;
 }
 
 .btn:hover {
@@ -967,4 +967,11 @@ body {
   .hero {
     padding-top: 60px !important; /* Match navbar height */
   }
+}
+
+@media (min-width: 768px) {
+    .btn.secondary {
+        display: inline-block;
+        margin: 10px;
+    }
 }
