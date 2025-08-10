@@ -380,6 +380,7 @@ body {
   background: transparent;
   color: var(--primary);
   border: 1px solid var(--primary);
+  padding: 10px;
 }
 
 .btn:hover {
