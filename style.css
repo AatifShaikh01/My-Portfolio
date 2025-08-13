@@ -978,3 +978,12 @@ body {
         margin: 10px;
     }
 }
+
+.logo {
+  border: 2px solid black
+}
+
+[data-theme="dark"] .logo {
+  border: 2px solid white;
+}
+
